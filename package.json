@@ -1,0 +1,6 @@
+{
+  "name": "happysquirtday",
+  "private": true,
+  "scripts": { "build": "node build.cjs" },
+  "devDependencies": { "playwright": "^1.56.0" }
+}
