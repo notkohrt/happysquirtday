@@ -1,27 +1,23 @@
 # happy squirtday
 
-Ready-to-host static website. Open index.html to view it. No runtime dependencies, scripts, buttons, confetti or tracking.
+Minimal static birthday page: original Ricardo Milos dancing GIF, with the visible caption `happy squirtday brandon <3` in white Times New Roman.
 
-## Publish
+The HTML title, og:title and twitter:title are independently set to `pegging is not gay`. This preview title is not rendered in the page body or preview image.
 
-Upload index.html, assets/, robots.txt, CNAME and .nojekyll to the root of the website. For GitHub Pages, put these files at the repository root and select that branch/root in Settings → Pages. CNAME specifies happysquirtday.co.uk; configure the domain's DNS for your hosting provider and enable HTTPS.
+## Editing
 
-## Next birthday
+Edit birthday.json. `caption` controls visible text; `previewTitle` controls sharing and browser titles. `image` points to the original animated asset. Install dependencies with npm install, then run npm run build (Playwright Chromium must be installed, or set BROWSER_CHANNEL=msedge).
 
-Edit birthday.json (caption, description, image and imageAlt). Keep the domain URL unless moving the site. Install Node.js, then run:
+The build writes static index.html and a 1200 x 630 JPEG preview with a content-versioned filename. The GIF is preserved unchanged; social cards use a static JPEG for compatibility.
 
-```
-npm install
-npx playwright install chromium
-npm run build
-```
+GIF source: https://giphy.com/gifs/ricardo-milos-f3e3vLxB7TOuIxDVrX
 
-The build updates the static HTML and creates a captioned JPEG for social previews with a new filename when the configuration or source image changes. Upload both. No JavaScript needs to run for visitors or social crawlers. The build machine uses Times New Roman if installed, with Times/serif as fallbacks. This version was rendered on Windows with Times New Roman.
+## Hosting and previews
 
-## Link previews
+GitHub Pages publishes the main branch root of notkohrt/happysquirtday. CNAME retains happysquirtday.co.uk. Upload/commit the generated HTML, new assets and configuration together.
 
-Open Graph and Twitter large-image metadata is embedded directly in the HTML. Both image tags use an absolute HTTPS URL at happysquirtday.co.uk. The JPEG is 1200 × 630 and includes the caption. The original uploaded photograph is preserved separately.
+Open Graph and Twitter metadata are in the initial HTML, with matching titles, descriptions, absolute image URLs, image dimensions, MIME type and alt text. robots.txt permits crawling. No JavaScript or login is needed.
 
-After deployment, both the homepage and the absolute og:image URL must return HTTP 200 publicly, without login or crawler blocking, with text/html and image/jpeg content types respectively. Ask the social platform to scrape again if it cached an older preview; a new image filename helps, but existing messages may retain cached previews. Platforms control the final card crop and appearance.
+The preview image uses the public raw.githubusercontent.com HTTPS asset URL because the custom domain's HTTPS certificate failed validation during the October 15, 2026 check. Canonical and og:url retain the intended HTTPS custom domain. Repair/enable the domain's HTTPS certificate in GitHub Pages before relying on secure-link unfurls. Once HTTPS works, socialImageBaseUrl can be changed to https://happysquirtday.co.uk/ and the site rebuilt.
 
-This downloadable package has not been deployed. Live social previews cannot be confirmed until the domain serves these files.
+Metadata validation does not prove an actual iMessage or Discord card rendered. Platforms can cache old previews; existing messages may not refresh. The static JPEG preview intentionally contains the birthday caption, not the separate preview title.

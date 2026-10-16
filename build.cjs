@@ -9,19 +9,20 @@ const c = JSON.parse(fs.readFileSync('birthday.json', 'utf8'));
 const esc = s => String(s).replace(/[&<>"']/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const version = crypto.createHash('sha256').update(JSON.stringify(c)).update(fs.readFileSync(c.image)).digest('hex').slice(0, 12);
 const preview = `assets/social-${version}.jpg`;
-const socialURL = new URL(preview, c.url).href;
+const socialURL = new URL(preview, c.socialImageBaseUrl || c.url).href;
+const previewTitle = c.previewTitle || c.caption;
 const alt = `${c.imageAlt}, with the caption: ${c.caption}`;
 const html = `<!doctype html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(c.caption)}</title>
+  <title>${esc(previewTitle)}</title>
   <meta name="description" content="${esc(c.description)}">
   <link rel="canonical" href="${esc(c.url)}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="happy squirtday">
-  <meta property="og:title" content="${esc(c.caption)}">
+  <meta property="og:title" content="${esc(previewTitle)}">
   <meta property="og:description" content="${esc(c.description)}">
   <meta property="og:url" content="${esc(c.url)}">
   <meta property="og:image" content="${esc(socialURL)}">
@@ -31,7 +32,7 @@ const html = `<!doctype html>
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="${esc(alt)}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${esc(c.caption)}">
+  <meta name="twitter:title" content="${esc(previewTitle)}">
   <meta name="twitter:description" content="${esc(c.description)}">
   <meta name="twitter:image" content="${esc(socialURL)}">
   <meta name="twitter:image:alt" content="${esc(alt)}">
@@ -46,7 +47,7 @@ const html = `<!doctype html>
 </head>
 <body>
   <main>
-    <img src="${esc(c.image)}" alt="${esc(c.imageAlt)}" width="1280" height="720" fetchpriority="high">
+    <img src="${esc(c.image)}" alt="${esc(c.imageAlt)}" width="${c.imageWidth || 1280}" height="${c.imageHeight || 720}" fetchpriority="high">
     <h1>${esc(c.caption)}</h1>
   </main>
 </body>
