@@ -18,6 +18,8 @@ GitHub Pages publishes the main branch root of notkohrt/happysquirtday. CNAME re
 
 Open Graph and Twitter metadata are in the initial HTML, with matching titles, descriptions, absolute image URLs, image dimensions, MIME type and alt text. robots.txt permits crawling. No JavaScript or login is needed.
 
-The preview image uses the public raw.githubusercontent.com HTTPS asset URL because the custom domain's HTTPS certificate failed validation during the October 15, 2026 check. Canonical and og:url retain the intended HTTPS custom domain. Repair/enable the domain's HTTPS certificate in GitHub Pages before relying on secure-link unfurls. Once HTTPS works, socialImageBaseUrl can be changed to https://happysquirtday.co.uk/ and the site rebuilt.
+The preview image uses the public raw.githubusercontent.com HTTPS asset URL because the custom domain's HTTPS certificate failed validation during the October 15, 2026 check. Canonical and og:url retain the intended HTTPS custom domain. HTTPS subsequently passed live validation and HTTPS enforcement was enabled. The public HTTPS image host remains valid; socialImageBaseUrl may optionally be changed to https://happysquirtday.co.uk/ and rebuilt.
 
 Metadata validation does not prove an actual iMessage or Discord card rendered. Platforms can cache old previews; existing messages may not refresh. The static JPEG preview intentionally contains the birthday caption, not the separate preview title.
+
+
